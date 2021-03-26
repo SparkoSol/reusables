@@ -43,7 +43,7 @@ import 'package:flutter/widgets.dart';
 abstract class ControlledWidget<T extends Listenable> extends StatefulWidget {
   final T controller;
 
-  const ControlledWidget(this.controller);
+  const ControlledWidget({Key key, this.controller}) : super(key: key);
 
   /// Creates an instance of [ControlledWidgetState].
   @override
