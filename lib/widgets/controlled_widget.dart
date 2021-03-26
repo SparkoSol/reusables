@@ -43,7 +43,8 @@ import 'package:flutter/widgets.dart';
 abstract class ControlledWidget<T extends Listenable> extends StatefulWidget {
   final T controller;
 
-  const ControlledWidget({Key key, this.controller}) : super(key: key);
+  const ControlledWidget({Key? key, required this.controller})
+      : super(key: key);
 
   /// Creates an instance of [ControlledWidgetState].
   @override
@@ -56,7 +57,6 @@ abstract class ControlledWidget<T extends Listenable> extends StatefulWidget {
 /// disposing-off.
 abstract class ControlledWidgetState<T extends Listenable>
     extends State<ControlledWidget<T>> {
-
   /// This method is called whenever a notification is received from the
   /// `controller`. by default widget rebuilds itself on every notification.
   ///
