@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-///
+/// A utility class that contains implementations of some common validators.
 abstract class InputValidator {
   static final _emailRegExp = RegExp(
     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
