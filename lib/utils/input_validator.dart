@@ -61,10 +61,10 @@ abstract class InputValidator {
   }
 
   ///
-  static FormFieldValidator<T>? required<T>({
+  static FormFieldValidator<String>? required({
     String message = 'This field is required',
   }) {
-    return (T? value) {
+    return (String? value) {
       if ((value ?? '').toString().isNotEmpty) return null;
       return message;
     };
