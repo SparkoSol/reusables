@@ -1,4 +1,4 @@
-name: common
+name: blink
 description: A new Flutter project.
 publish_to: 'none'
 
@@ -9,8 +9,4 @@ environment:
 
 dependencies:
   flutter:
-    sdk: flutter
-
-dev_dependencies:
-  flutter_test:
     sdk: flutter
