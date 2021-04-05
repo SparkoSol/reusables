@@ -6,6 +6,29 @@ abstract class InputValidator {
     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
   );
 
+  /// Creates a validator than enforces the input string to have a pattern
+  /// specified by [regExp].
+  ///
+  /// It returns [message] as an error in case, an invalid string is provided.
+  ///
+  /// ```
+  /// class TestPage extends StatelessWidget {
+  ///   @override
+  ///   Widget build(BuildContext context) {
+  ///     return Column(children: <Widget>[
+  ///       TextFormField(
+  ///         validator: InputValidator.match(regExp: RegExp('<any-pattern>')),
+  ///       ),
+  ///       TextFormField(
+  ///         validator: InputValidator.email(
+  ///           regExp: RegExp('<any-pattern>'),
+  ///           message: 'Custom Error Message',
+  ///         ),
+  ///       ),
+  ///     ]);
+  ///   }
+  /// }
+  /// ```
   static FormFieldValidator<String>? match({
     required RegExp regExp,
     String? message,
@@ -17,8 +40,24 @@ abstract class InputValidator {
     };
   }
 
+  /// Creates a validator than enforces the input string to be a valid email.
+  /// It returns [message] as an error in case, an invalid email in provided.
+  ///
+  /// ```
+  /// class TestPage extends StatelessWidget {
+  ///   @override
+  ///   Widget build(BuildContext context) {
+  ///     return Column(children: <Widget>[
+  ///       TextFormField(validator: InputValidator.email()),
+  ///       TextFormField(
+  ///         validator: InputValidator.email(message: 'Custom Error Message'),
+  ///       ),
+  ///     ]);
+  ///   }
+  /// }
+  /// ```
   static FormFieldValidator<String>? email({
-    String message = 'This is not a valid email address'
+    String message = 'This is not a valid email address',
   }) {
     return (String? value) {
       if (_emailRegExp.hasMatch(value ?? '')) return null;
@@ -26,6 +65,28 @@ abstract class InputValidator {
     };
   }
 
+  /// Creates a validator than enforces the input string to have length
+  /// between [min] and [max].
+  ///
+  /// It returns [minMessage] as an error in case, length in lesser than [min].
+  /// It returns [maxMessage] as an error in case, length in lesser than [max].
+  ///
+  /// ```
+  /// class TestPage extends StatelessWidget {
+  ///   @override
+  ///   Widget build(BuildContext context) {
+  ///     return Column(children: <Widget>[
+  ///       TextFormField(validator: InputValidator.length(min: 10)),
+  ///       TextFormField(
+  ///         validator: InputValidator.length(
+  ///           min: 10,
+  ///           message: 'Custom Error Message',
+  ///         ),
+  ///       ),
+  ///     ]);
+  ///   }
+  /// }
+  /// ```
   static FormFieldValidator<String>? length({
     int? max,
     int min = 0,
@@ -46,7 +107,27 @@ abstract class InputValidator {
     };
   }
 
+  /// Creates a validator than enforces the input string to have [pattern] in it
+  /// It returns [message] as an error in case, an invalid email in provided.
   ///
+  /// ```
+  /// class TestPage extends StatelessWidget {
+  ///   @override
+  ///   Widget build(BuildContext context) {
+  ///     return Column(children: <Widget>[
+  ///       TextFormField(
+  ///         validator: InputValidator.contains(patterns: '<any-pattern>'),
+  ///       ),
+  ///       TextFormField(
+  ///         validator: InputValidator.email(
+  ///           patterns: '<any-pattern>',
+  ///           message: 'Custom Error Message',
+  ///         ),
+  ///       ),
+  ///     ]);
+  ///   }
+  /// }
+  /// ```
   static FormFieldValidator<String>? contains({
     required String pattern,
     String? message,
@@ -60,7 +141,22 @@ abstract class InputValidator {
     };
   }
 
+  /// Creates a validator than enforces the input string to be not empty.
+  /// It returns [message] as an error in case, an empty string is provided.
   ///
+  /// ```
+  /// class TestPage extends StatelessWidget {
+  ///   @override
+  ///   Widget build(BuildContext context) {
+  ///     return Column(children[
+  ///       TextFormField(validator: InputValidator.required()),
+  ///       TextFormField(
+  ///         validator: InputValidator.required(message: 'Custom Error Message'),
+  ///       ),
+  ///     ]);
+  ///   }
+  /// }
+  /// ```
   static FormFieldValidator<String>? required({
     String message = 'This field is required',
   }) {
@@ -70,7 +166,30 @@ abstract class InputValidator {
     };
   }
 
+  /// Creates a validator from a List of [FormFieldValidator], all the validators
+  /// are executed sequentially.
   ///
+  /// The execution stops if a validator fails and the failure message is
+  /// returned.
+  ///
+  /// ```
+  /// class TestPage extends StatelessWidget {
+  ///   @override
+  ///   Widget build(BuildContext context) {
+  ///     return TextFormField(
+  ///       validator: InputValidator.multiple([
+  ///         InputValidator.required(),
+  ///         InputValidator.email(),
+  ///
+  ///         // a custom validator.
+  ///         (String? value) {
+  ///           // add your logic here.
+  ///         }
+  ///       ]),
+  ///     );
+  ///   }
+  /// }
+  /// ```
   static FormFieldValidator<T> multiple<T>(
     List<FormFieldValidator<T>> validators,
   ) {
