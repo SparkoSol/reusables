@@ -56,7 +56,7 @@ abstract class ControlledWidget<T extends Listenable> extends StatefulWidget {
 /// It registers [rebuild] callback at initialization and unregisters it before
 /// disposing-off.
 abstract class ControlledWidgetState<T extends ControlledWidget>
-    extends State<ControlledWidget> {
+    extends State<T> {
   /// This method is called whenever a notification is received from the
   /// `controller`. by default widget rebuilds itself on every notification.
   ///
