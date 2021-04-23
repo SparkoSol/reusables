@@ -58,9 +58,9 @@ class AsyncTaskService {
     late T result;
 
     try {
-      await _behaviour.before(context);
+      await _behaviour.before(context, arguments);
       result = await asyncTask();
-      await _behaviour.after(context);
+      await _behaviour.after(context, arguments);
     } catch (error) {
       await _behaviour.onError(context, error);
       if (throwError) rethrow;
@@ -154,7 +154,7 @@ Widget _defaultLoadingViewBuilder(BuildContext context, [arguments]) {
   assert(arguments is! String, 'only `String` can be used as argument');
 
   return Dialog(
-    child: Text(arguments),
+    child: Text(arguments ?? 'Please wait'),
   );
 }
 
