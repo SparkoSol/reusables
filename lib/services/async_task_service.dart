@@ -151,7 +151,7 @@ class _DefaultAsyncTaskBehaviourConfig {
 }
 
 Widget _defaultLoadingViewBuilder(BuildContext context, [arguments]) {
-  assert(arguments is String, 'only `String` can be used as argument');
+  assert(arguments !is String, 'only `String` can be used as argument');
 
   return Dialog(
     child: Text(arguments),
