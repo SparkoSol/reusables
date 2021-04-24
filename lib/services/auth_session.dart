@@ -1,5 +1,7 @@
-import 'dart:convert';
 import 'dart:io';
+import 'dart:convert';
+
+import 'package:path_provider/path_provider.dart';
 
 abstract class UserParser<T> {
   Map<String, dynamic> toJson(T user);
@@ -9,11 +11,14 @@ abstract class UserParser<T> {
 
 class AuthSession {
   bool get isAuthenticated => _token != null;
+
   String get token => _token ?? '';
+
   dynamic get user => _user;
 
   static Future<void> initWith(UserParser storage) async {
-    _file = File(r'$__app_auth.session');
+    _file = File((await getApplicationDocumentsDirectory()).path +
+        r'$__app_auth.session');
 
     if (!(await _file!.exists())) {
       await _file!.create();
@@ -43,9 +48,10 @@ class AuthSession {
     }
 
     await (_file!.openWrite()
-      ..write(
-        jsonEncode(_storage!.toJson(user)..addAll({'access_token': token})),
-      )).close();
+          ..write(
+            jsonEncode(_storage!.toJson(user)..addAll({'access_token': token})),
+          ))
+        .close();
   }
 
   factory AuthSession() => _instance;
