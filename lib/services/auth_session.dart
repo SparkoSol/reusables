@@ -38,7 +38,11 @@ class AuthSession {
     }
   }
 
-  Future<void> wipe() => (_file!.openWrite()..add([])).close();
+  Future<void> wipe() async {
+    await (_file!.openWrite()..add([])).close();
+    _user = null;
+    _token = null;
+  }
 
   Future<void> update(String token, dynamic user) async {
     _user = user;
