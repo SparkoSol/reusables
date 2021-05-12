@@ -79,28 +79,28 @@ class AsyncTaskService {
 /// application.
 class DefaultAsyncTaskBehaviour extends AsyncTaskBehaviour {
   /// Overrides the default `useSafeArea` option of [showDialog] by [value]
-  set useSafeArea(bool value) => _config.useSafeArea = value;
+  static set useSafeArea(bool value) => _config.useSafeArea = value;
 
   /// Overrides the default `barrierColor` option of [showDialog] by [value]
-  set barrierColor(Color? value) => _config.barrierColor = value;
+  static set barrierColor(Color? value) => _config.barrierColor = value;
 
   /// Overrides the default `barrierLabel` option of [showDialog] by [value]
-  set barrierLabel(String? value) => _config.barrierLabel = value;
+  static set barrierLabel(String? value) => _config.barrierLabel = value;
 
   /// Overrides the default `useRootNavigator` option of [showDialog] by [value]
-  set useRootNavigator(bool value) => _config.useRootNavigator = value;
+  static set useRootNavigator(bool value) => _config.useRootNavigator = value;
 
   /// Overrides the default `barrierDismissible` option of [showDialog] by
   /// [value]
-  set barrierDismissible(bool value) => _config.barrierDismissible = value;
+  static set barrierDismissible(bool value) => _config.barrierDismissible = value;
 
   /// Overrides the default loadingBuilder by [builder]
-  set loadingBuilder(Widget Function(BuildContext, dynamic) builder) {
+  static set loadingBuilder(Widget Function(BuildContext, dynamic) builder) {
     _loadingBuilder = builder;
   }
 
   /// Overrides the default errorBuilder by [builder]
-  set errorBuilder(Widget Function(BuildContext, dynamic) builder) {
+  static set errorBuilder(Widget Function(BuildContext, dynamic) builder) {
     _errorBuilder = builder;
   }
 
