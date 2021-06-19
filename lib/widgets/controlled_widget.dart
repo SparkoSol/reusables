@@ -41,20 +41,63 @@ import 'package:flutter/widgets.dart';
 /// }
 /// ```
 abstract class ControlledWidget<T extends Listenable> extends StatefulWidget {
+  /// A [Listenable] object that will be responsible to trigger UI rebuilds.
   final T controller;
 
+  /// Creates an instance of [ControlledWidget].
   const ControlledWidget({Key? key, required this.controller})
       : super(key: key);
+}
 
-  /// Creates an instance of [ControlledWidgetState].
+/// A mixin that will handle addition and removal of listeners from [Listenable]
+/// i.e. [widget.controller].
+mixin ControlledStateMixin<T extends ControlledWidget> on State<T> {
+  /// This method is called whenever a notification is received from the
+  /// `controller`. by default widget rebuilds itself on every notification.
+  ///
+  /// To get a conditional rebuild, override this method and call
+  /// `super.rebuild()` to allow rebuild.
+  @mustCallSuper
+  void rebuild() => setState(() {});
+
+  /// Registers [rebuild] as a notification listener to [widget.controller]
+  /// before initializing widget state.
   @override
-  ControlledWidgetState<ControlledWidget<T>> createState();
+  @mustCallSuper
+  void initState() {
+    widget.controller.addListener(rebuild);
+    super.initState();
+  }
+
+  /// It will be called whenever the parent widget is rebuilt, it is necessary
+  /// because sometimes [widget.controller] might change whenever the parent
+  /// widget is rebuilt.
+  @override
+  void didUpdateWidget(covariant T oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    // Update listeners if the controller is changed.
+    if (oldWidget.controller != widget.controller) {
+      widget.controller.addListener(rebuild);
+      oldWidget.controller.removeListener(rebuild);
+    }
+  }
+
+  /// Unregisters [rebuild] as a notification listener from [widget.controller]
+  /// before disposing-off widget state.
+  @override
+  @mustCallSuper
+  void dispose() {
+    widget.controller.removeListener(rebuild);
+    super.dispose();
+  }
 }
 
 /// A state for [ControlledWidget].
 ///
 /// It registers [rebuild] callback at initialization and unregisters it before
 /// disposing-off.
+@Deprecated('Use [ControlledStateMixin] instead. It will be removed soon.')
 abstract class ControlledWidgetState<T extends ControlledWidget>
     extends State<T> {
   /// This method is called whenever a notification is received from the
