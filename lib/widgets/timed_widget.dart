@@ -9,6 +9,8 @@ class TimedWidgetController extends ChangeNotifier {
   Timer? _timer;
   Timer? _timerFor;
 
+  int get ticks => _timer?.tick ?? 0;
+
   void start(Duration period, [Duration? runFor]) {
     if (_timer != null) {
       throw 'a timer is active already stop the previous timer to start again';
@@ -63,5 +65,5 @@ class TimedWidget extends ControlledWidget<TimedWidgetController> {
 class _TimedWidgetState extends State<TimedWidget> with ControlledStateMixin {
   @override
   Widget build(BuildContext context) =>
-      widget.builder(context, widget.controller._timer?.tick ?? 0);
+      widget.builder(context, widget.controller.ticks);
 }
