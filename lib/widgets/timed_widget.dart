@@ -31,6 +31,8 @@ class TimedWidgetController extends ChangeNotifier {
       _timer?.cancel();
       _timer = null;
     }
+
+    notifyListeners();
   }
 
   @override
