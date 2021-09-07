@@ -58,7 +58,7 @@ class TimedWidget extends ControlledWidget<TimedWidgetController> {
   _TimedWidgetState createState() => _TimedWidgetState();
 }
 
-class _TimedWidgetState extends State<TimedWidget> {
+class _TimedWidgetState extends State<TimedWidget> with ControlledStateMixin {
   @override
   Widget build(BuildContext context) =>
       widget.builder(context, widget.controller._timer?.tick ?? 0);
