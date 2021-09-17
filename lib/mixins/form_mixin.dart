@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
 
 /// Add this mixin to a [Widget] or [State] to ease use of [Form].
-mixin FormMixin on Widget, State {
+mixin FormMixin on Diagnosticable {
   /// This Key must be bound with the [Form] Widget that is to be used.
   final formKey = GlobalKey<FormState>();
 
