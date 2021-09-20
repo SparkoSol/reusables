@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 ///
 abstract class Awaiter {
   ///
-  set defaultBehaviour(AwaiterBehaviour behaviour) => _default = behaviour;
+  static set defaultBehaviour(AwaiterBehaviour behaviour) =>
+      _default = behaviour;
 
   ///
-  static Future<T> await<T, U>(
-    BuildContext context,
-    Future<T> future, {
+  static Future<T> process<T, U>({
     U? arguments,
+    required Future<T> future,
     AwaiterBehaviour? behaviour,
+    required BuildContext context,
   }) async {
     behaviour ??= _default;
     if (behaviour == null) {
@@ -22,7 +23,7 @@ abstract class Awaiter {
 
     await behaviour.before(context, arguments);
     final result = await future;
-    await behaviour.after(context, arguments);
+    await behaviour.after(context);
 
     return result;
   }
@@ -35,7 +36,7 @@ abstract class AwaiterBehaviour<T> {
   const AwaiterBehaviour();
 
   ///
-  FutureOr<void> after(BuildContext context, T arguments);
+  FutureOr<void> after(BuildContext context);
 
   ///
   FutureOr<void> before(BuildContext context, T arguments);
