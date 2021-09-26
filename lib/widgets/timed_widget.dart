@@ -3,27 +3,44 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:reusables/reusables.dart';
 
-typedef TimedWidgetBuilder = Function(BuildContext context, int tick);
+typedef TimedWidgetBuilder = Function(BuildContext context, Duration time);
 
 class TimedWidgetController extends ChangeNotifier {
-  Timer? _timer;
-  Timer? _timerFor;
+  ///
+  Duration get time {
+    if (_isRunning) {
+      return _time!;
+    } else {
+      throw 'Access this getter only when timer is running';
+    }
+  }
 
-  int get ticks => _timer?.tick ?? 0;
+  ///
+  bool get isRunning => _isRunning;
 
+  ///
   void start(Duration period, [Duration? runFor]) {
     if (_timer != null) {
       throw 'a timer is active already stop the previous timer to start again';
     }
 
+    _time = Duration();
+    _isRunning = true;
+    notifyListeners();
+
     if (runFor != null) {
       _timerFor = Timer(runFor, cancel);
     }
 
+    _period = period;
     _timer = Timer.periodic(period, _notifyListeners);
   }
 
+  ///
   void cancel() {
+    _time = null;
+    _period = null;
+
     if (_timerFor?.isActive == true) {
       _timerFor?.cancel();
       _timerFor = null;
@@ -34,6 +51,7 @@ class TimedWidgetController extends ChangeNotifier {
       _timer = null;
     }
 
+    _isRunning = false;
     notifyListeners();
   }
 
@@ -46,7 +64,17 @@ class TimedWidgetController extends ChangeNotifier {
     super.dispose();
   }
 
-  void _notifyListeners(Timer _) => notifyListeners();
+  void _notifyListeners(Timer _) {
+    _time = _time! + _period!;
+    notifyListeners();
+  }
+
+  Timer? _timer;
+  Timer? _timerFor;
+  Duration? _time;
+  Duration? _period;
+
+  var _isRunning = false;
 }
 
 class TimedWidget extends ControlledWidget<TimedWidgetController> {
@@ -65,5 +93,5 @@ class TimedWidget extends ControlledWidget<TimedWidgetController> {
 class _TimedWidgetState extends State<TimedWidget> with ControlledStateMixin {
   @override
   Widget build(BuildContext context) =>
-      widget.builder(context, widget.controller.ticks);
+      widget.builder(context, widget.controller.time);
 }

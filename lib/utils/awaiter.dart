@@ -22,8 +22,14 @@ abstract class Awaiter {
     }
 
     await behaviour.before(context, arguments);
-    final result = await future;
-    await behaviour.after(context);
+    var result;
+    try {
+      result = await future;
+      await behaviour.after(context);
+    } catch (e) {
+      await behaviour.after(context);
+      rethrow;
+    }
 
     return result;
   }
