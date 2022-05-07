@@ -10,3 +10,5 @@ export 'widgets/timed_widget.dart';
 
 export 'utils/awaiter.dart';
 export 'utils/input_validator.dart';
+
+export 'utils/extensions.dart';
