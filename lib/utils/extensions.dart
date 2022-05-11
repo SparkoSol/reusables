@@ -7,12 +7,15 @@ extension DateFormatter on DateTime {
   /// Time Format to 04:49 PM
   String get timeFormat => DateFormat('hh:mm a').format(this);
 
-  /// Time Format to 05-07-2022 04:49 PM
+  /// Date Format to 05-07-2022 04:49 PM
   String get dateTimeFormat => DateFormat('dd-MM-yyyy, hh:mm a').format(this);
 
-  /// Time Format to 05 Feb 2022
+  /// Date Format to 05 Feb 2022
   String get dateMonthFormat => DateFormat('dd MMM yyyy').format(this);
 
-  /// Time Format to 05-07-2022 Saturday
+  /// Date Format to only month name Jan
+  String get monthFormat => DateFormat('MMM').format(this);
+
+  /// Date Format to 05-07-2022 Saturday
   String get dateDayFormat => DateFormat('dd-MM-yyyy EEEE').format(this);
 }
