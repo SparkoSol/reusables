@@ -16,6 +16,9 @@ extension DateFormatter on DateTime {
   /// Date Format to only month name Jan
   String get monthFormat => DateFormat('MMM').format(this);
 
+  /// Date Format to only day name Mon
+  String get dayFormat => DateFormat('EEE').format(this);
+
   /// Date Format to 05-07-2022 Saturday
   String get dateDayFormat => DateFormat('dd-MM-yyyy EEEE').format(this);
 }
