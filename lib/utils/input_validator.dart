@@ -141,6 +141,42 @@ abstract class InputValidator {
     };
   }
 
+  /// Creates a validator that enforces the input string is a valid password.
+  /// It returns [message] as an error in case, wrong password is provided.
+  ///
+  /// The execution stops if a validator fails and the failure message is
+  /// returned.
+  ///
+  /// ```
+  /// class TestPage extends StatelessWidget {
+  ///   @override
+  ///   Widget build(BuildContext context) {
+  ///     return TextFormField(
+  ///       validator: InputValidator.password(
+  ///         message: 'Custom Error Message',
+  ///       ),
+  ///     );
+  ///   }
+  /// }
+  /// ```
+  static FormFieldValidator<String>? password({
+    String message = 'Must have uppercase, lowercase & number',
+  }) {
+    return (String? value) {
+      if (value?.isEmpty ?? true) {
+        return 'This field is required';
+      }
+      if (value!.length < 8) {
+        return 'Must be 8 characters long';
+      }
+      if (!RegExp(
+          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$')
+         .hasMatch(value))
+       return message;
+     return null;
+    };
+  }
+  
   /// Creates a validator than enforces the input string to be not empty.
   /// It returns [message] as an error in case, an empty string is provided.
   ///
