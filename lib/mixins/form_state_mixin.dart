@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 mixin FormStateMixin<T extends StatefulWidget> on State<T> {
   /// This Key must be bound with the [Form] Widget that is to be used.
   final formKey = GlobalKey<FormState>();
-  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  var autovalidateMode = AutovalidateMode.disabled;
 
   /// Pass this function as a parameter to Widget that acts as a submit button,
   ///
