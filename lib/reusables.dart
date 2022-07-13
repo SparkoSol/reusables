@@ -5,6 +5,7 @@ export 'mixins/app_locale_config.dart';
 
 export 'services/auth_session.dart';
 
+export 'widgets/event_controlled_widget.dart';
 export 'widgets/controlled_widget.dart';
 export 'widgets/timed_widget.dart';
 
