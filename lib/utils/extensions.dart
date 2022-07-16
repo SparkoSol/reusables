@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:intl/intl.dart';
 
 extension DateFormatter on DateTime {
@@ -21,4 +23,9 @@ extension DateFormatter on DateTime {
 
   /// Date Format to 05-07-2022 Saturday
   String get dateDayFormat => DateFormat('dd-MM-yyyy EEEE').format(this);
+}
+
+extension RandomElement<T> on Iterable<T> {
+  /// This will give you a random element from list
+  T getRandomElement() => elementAt(Random().nextInt(length));
 }
