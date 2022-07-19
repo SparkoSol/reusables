@@ -1,3 +1,4 @@
+import 'dart:developer' as devtool show log;
 import 'dart:math';
 
 import 'package:intl/intl.dart';
@@ -28,4 +29,10 @@ extension DateFormatter on DateTime {
 extension RandomElement<T> on Iterable<T> {
   /// This will give you a random element from list
   T getRandomElement() => elementAt(Random().nextInt(length));
+}
+
+extension Log on Object {
+  /// Directly call log() on any object to print at console
+  /// i.e. 'abc'.log() = log('abc')
+  void log() => devtool.log(toString());
 }
