@@ -1,6 +1,7 @@
 import 'dart:developer' as devtool show log;
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 extension DateFormatter on DateTime {
@@ -35,4 +36,38 @@ extension Log on Object {
   /// Directly call log() on any object to print at console
   /// i.e. 'abc'.log() = log('abc')
   void log() => devtool.log(toString());
+}
+
+extension Navigation on BuildContext {
+
+  /// extension on BuildContext to make navigation easier
+  ///
+  /// Usage
+  ///
+  /// context.showSnackbar('This is a snackbar')
+  /// context.push(HomePage())
+  /// context.navigateRemoveUntil(HomePage())
+  /// context.pop()
+
+
+  void showSnackbar(String message) {
+    final scaffoldMessenger = ScaffoldMessenger.of(this);
+    scaffoldMessenger.hideCurrentSnackBar();
+    scaffoldMessenger.showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  Future<dynamic> push(Widget page) async {
+    return await Navigator.of(this).push(
+      MaterialPageRoute(builder: (_) => page),
+    );
+  }
+
+  navigateRemoveUntil(Widget page) async {
+    Navigator.of(this).pushAndRemoveUntil(
+      MaterialPageRoute<dynamic>(builder: (BuildContext con) => page),
+      (route) => false,
+    );
+  }
+
+  pop() => Navigator.of(this).pop();
 }
