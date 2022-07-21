@@ -39,7 +39,6 @@ extension Log on Object {
 }
 
 extension Navigation on BuildContext {
-
   /// extension on BuildContext to make navigation easier
   ///
   /// Usage
@@ -48,7 +47,7 @@ extension Navigation on BuildContext {
   /// context.push(HomePage())
   /// context.navigateRemoveUntil(HomePage())
   /// context.pop()
-
+  /// context.unFocus() instead of [FocusScope.of(context).unfocus()];
 
   void showSnackbar(String message) {
     final scaffoldMessenger = ScaffoldMessenger.of(this);
@@ -70,4 +69,6 @@ extension Navigation on BuildContext {
   }
 
   pop() => Navigator.of(this).pop();
+
+  void unFocus() => FocusScope.of(this).unfocus();
 }
