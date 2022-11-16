@@ -1,5 +1,5 @@
-import 'dart:io';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 
@@ -64,7 +64,7 @@ class AuthSession {
 
   static final _instance = AuthSession._();
   static UserParser? _storage;
-  static dynamic? _user;
+  static dynamic _user;
   static String? _token;
   static File? _file;
 }

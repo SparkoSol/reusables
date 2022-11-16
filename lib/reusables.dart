@@ -2,6 +2,7 @@ library blink_flutter_reuseables;
 
 export 'mixins/form_mixin.dart';
 export 'mixins/app_locale_config.dart';
+export 'mixins/form_state_mixin.dart';
 
 export 'services/auth_session.dart';
 

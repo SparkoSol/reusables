@@ -32,21 +32,18 @@ abstract class EventControlledWidget<T> extends StatefulWidget {
 }
 
 mixin EventControlledState<T, U extends EventControlledWidget<T>> on State<U> {
-  void onEvent(T event) {
-  }
+  void onEvent(T event) {}
 
   /// This method is called whenever a notification is received from the
   /// `controller`. by default widget rebuilds itself on every notification.
   ///
   /// To get a conditional rebuild, override this method and call
   /// `super.rebuild()` to allow rebuild.
-  @mustCallSuper
   void rebuild() => setState(() {});
 
   /// Registers [rebuild] as a notification listener to [widget.controller]
   /// before initializing widget state.
   @override
-  @mustCallSuper
   void initState() {
     widget.notifier.addListener(onEvent);
     super.initState();
@@ -69,7 +66,6 @@ mixin EventControlledState<T, U extends EventControlledWidget<T>> on State<U> {
   /// Unregisters [rebuild] as a notification listener from [widget.controller]
   /// before disposing-off widget state.
   @override
-  @mustCallSuper
   void dispose() {
     widget.notifier.removeListener(onEvent);
     super.dispose();

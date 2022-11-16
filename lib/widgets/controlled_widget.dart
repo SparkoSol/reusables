@@ -57,13 +57,11 @@ mixin ControlledStateMixin<T extends ControlledWidget> on State<T> {
   ///
   /// To get a conditional rebuild, override this method and call
   /// `super.rebuild()` to allow rebuild.
-  @mustCallSuper
   void rebuild() => setState(() {});
 
   /// Registers [rebuild] as a notification listener to [widget.controller]
   /// before initializing widget state.
   @override
-  @mustCallSuper
   void initState() {
     widget.controller.addListener(rebuild);
     super.initState();
@@ -86,7 +84,6 @@ mixin ControlledStateMixin<T extends ControlledWidget> on State<T> {
   /// Unregisters [rebuild] as a notification listener from [widget.controller]
   /// before disposing-off widget state.
   @override
-  @mustCallSuper
   void dispose() {
     widget.controller.removeListener(rebuild);
     super.dispose();
@@ -105,13 +102,11 @@ abstract class ControlledWidgetState<T extends ControlledWidget>
   ///
   /// To get a conditional rebuild, override this method and call
   /// `super.rebuild()` to allow rebuild.
-  @mustCallSuper
   void rebuild() => setState(() {});
 
   /// Registers [rebuild] as a notification listener to [widget.controller]
   /// before initializing widget state.
   @override
-  @mustCallSuper
   void initState() {
     widget.controller.addListener(rebuild);
     super.initState();
@@ -120,7 +115,6 @@ abstract class ControlledWidgetState<T extends ControlledWidget>
   /// Unregisters [rebuild] as a notification listener from [widget.controller]
   /// before disposing-off widget state.
   @override
-  @mustCallSuper
   void dispose() {
     widget.controller.removeListener(rebuild);
     super.dispose();
