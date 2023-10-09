@@ -197,7 +197,7 @@ abstract class InputValidator {
     String message = 'This field is required',
   }) {
     return (String? value) {
-      if ((value ?? '').toString().isNotEmpty) return null;
+      if ((value ?? '').trim().toString().isNotEmpty) return null;
       return message;
     };
   }
