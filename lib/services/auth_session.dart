@@ -64,7 +64,7 @@ class AuthSession {
 
   static final _instance = AuthSession._();
   static UserParser? _storage;
-  static dynamic? _user;
+  static dynamic _user;
   static String? _token;
   static File? _file;
 }
